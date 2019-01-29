@@ -1,0 +1,16 @@
+
+@import url("./../../node_modules/bootstrap/dist/css/bootstrap.min.css");
+@import url("./../../node_modules/bootstrap/dist/css/bootstrap-theme.min.css");
+@import "was/was-main-ow.css";
+
+.was-report-content{
+    border: solid 1px #1f1f1e;
+    margin: 10px;
+    padding: 10px;
+}
+
+
+
+
+
+

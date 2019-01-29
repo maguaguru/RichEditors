@@ -1,0 +1,77 @@
+<main class="container">
+    <div id="index" class="m-t-1">
+        <div class="was-question was-content">
+            <div class="was-question-content">
+                <article>
+                    <section class="qti-section panel panel-default wAttemptContainer_fx_07_multiStep"
+                             data-sectionid="fx_07_multiStep">
+                        <div class="panel-heading was-question-panel-heading" style="">
+                            <h2 data-selenium-id="was-question-title"
+                                class="was-question-title qti-item-title qti-section-title">{{editorTitle}}</h2>
+                        </div>
+                        <div class="panel-body">
+                            <section class="qti-item panel panel-default wItemContainer_was-t47amp2-01_head"
+                                     data-itemid="was-t47amp2-01_head" data-selenium-id="qti-head">
+                                <div class="panel-body container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-12 qti-item-presentation-area"
+                                             data-itemid="was-t47amp2-01_head"
+                                             data-selenium-id="qti-item-presentation-area">
+                                            <div id="editor-container">
+                                            </div>
+                                            <div id="switchMode">
+                                            </div>
+                                            <br><br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="panel-footer js-section-attempt-and-submit-area container-fluid"
+                             style="display: none;">
+                            <div class="row text-right">
+                                <div class="js-attempt-area was-section-attempt-area"></div>
+                                <div class="js-submit-area was-section-submit-area" data-itemid="fx_07_multiStep"
+                                     data-isautograded="true" data-selenium-id="qti-section-submit-area"></div>
+                            </div>
+                            <div class="row">
+                                <div class="js-attempt-usage-area text-warning"
+                                     data-selenium-id="section-attempt-usage-area"></div>
+                            </div>
+                        </div>
+                    </section>
+                </article>
+            </div>
+            <div class="row js-item-attempt-and-submit-area container-fluid">
+                <div class="row">
+                    <div class="col-sm-12 text-right ">
+                        <div class="js-attempt-area was-item-attempt-area"><span><b>Attempts: 0 of 3 used</b></span></div>
+                        <div class="js-submit-area was-item-submit-area" data-item-id="was-t47amp2-01_part01" data-is-auto-graded="true" data-selenium-id="qti-item-submit-area">
+                            <button class="btn m-l-1 m-y-1 btn-primary qti-submit-answer">Submit</button></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="js-attempt-usage-area text-warning" data-selenium-id="attempt-usage-area"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="was-report-content"><p></p></div>
+            <div class="was-report-content-error"></div>
+        </div>
+    </div>
+    <footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="btn-group">
+                        <button id="getQuillEditor" class="btn btn-default" {{#if (eq editorName 'quill')}}disabled{{/if}}>Quill editor</button>
+                        <button id="getCKEditor" class="btn btn-default" {{#if (eq editorName 'ckeditor')}}disabled{{/if}}>CK editor</button>
+                        <button id="getFroalaEditor" class="btn btn-default" {{#if (eq editorName 'froala')}}disabled{{/if}}>Froala editor</button>
+                        <button id="getTinyMceEditor" class="btn btn-default" {{#if (eq editorName 'tinymce')}}disabled{{/if}}>TinyMce editor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</main>
