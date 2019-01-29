@@ -66,12 +66,14 @@ var Backbone = require("backbone"),
     froalaEditorData = require("froala-editor/js/froala_editor.pkgd.min"),
     wiris = require("@wiris/mathtype-froala/wiris"),
     SwitchModeButton = require("./view/SwitchModeButton"),
+    SwitchModeModel = require("./model/SwitchModeModel"),
     FroalaEditorView = require("./view/FroalaEditorView"),
     QuillEditorView = require("./view/QuillEditorView"),
     TinyMceEditorView = require("./view/TinyMceEditorView"),
     CKEditorView = require("./view/CKEditorView"),
     AppView,
     appView,
+    switchModeModel,
     switchModeButton,
     rishEditor,
     editableMode = false;
@@ -96,7 +98,6 @@ AppView = Backbone.View.extend({
      * экземпляра представления
      */
     initialize: function () {
-        console.log("model: ", this.model);
         this.template = _.template(questionTemplate({
             editorName: this.model.editor,
             editorTitle: this.model.title,
@@ -108,25 +109,21 @@ AppView = Backbone.View.extend({
     },
     events: {
         "click .qti-submit-answer": "getEditorData",
-        "click #switchEditorMode": "switchEditorMode",
+        "mouseup #switchEditorMode": "switchEditorMode",
         "click #getQuillEditor": "showQuillEditor",
         "click #getCKEditor": "showCKEditor",
         "click #getFroalaEditor": "showFroalaEditor",
         "click #getTinyMceEditor": "showTinyMceEditor"
     },
 
-    /*
-     * GetTemplate: function () {
-     *     return _.template(questionTemplate({
-     *         editorName: this.model.editor,
-     *         editorTitle: this.model.title,
-     *         editableMode: editableMode
-     *     }));
-     * },
-     */
-
     renderSwitchModeButton: function () {
-        switchModeButton = new SwitchModeButton({model: {editableMode: editableMode}});
+        if (switchModeModel && switchModeButton) {
+            switchModeButton.remove();
+            switchModeModel = null;
+            switchModeButton = null;
+        }
+        switchModeModel = new SwitchModeModel();
+        switchModeButton = new SwitchModeButton({ model: switchModeModel});
     },
 
     showQuillEditor: function () {
@@ -150,7 +147,7 @@ AppView = Backbone.View.extend({
         if (!editableMode) {
             this.getEditorData();
         }
-        this.renderSwitchModeButton();
+        switchModeButton.editorModeChanged();
         rishEditor.editorSwitchMode(editableMode);
 
         /*
@@ -177,8 +174,13 @@ AppView = Backbone.View.extend({
         }
     },
 
+    destroy: function() {
+        this.undelegateEvents();
+    },
+
     render: function () {
         this.$el.html(this.template());
+        this.delegateEvents();
         return this;
     }
 });
@@ -191,6 +193,10 @@ var QuillEditorPage = Backbone.View.extend({
 
         render: function () {
             $("body").empty();
+            if (appView) {
+                appView.destroy();
+                appView = null;
+            }
             appView = new AppView({model: {
                 editor: "quill",
                 title: "Quill Editor example"
@@ -207,6 +213,10 @@ var QuillEditorPage = Backbone.View.extend({
 
         render: function () {
             $("body").empty();
+            if (appView) {
+                appView.destroy();
+                appView = null;
+            }
             appView = new AppView({model: {
                 editor: "ckeditor",
                 title: "CKEditor example"
@@ -222,6 +232,10 @@ var QuillEditorPage = Backbone.View.extend({
 
         render: function () {
             $("body").empty();
+            if (appView) {
+                appView.destroy();
+                appView = null;
+            }
             appView = new AppView({model: {
                 editor: "froala",
                 title: "Froala editor example"
@@ -237,6 +251,10 @@ var QuillEditorPage = Backbone.View.extend({
 
         render: function () {
             $("body").empty();
+            if (appView) {
+                appView.destroy();
+                appView = null;
+            }
             appView = new AppView({model: {
                 editor: "tinymce",
                 title: "TinyMCE editor example"

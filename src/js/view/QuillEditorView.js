@@ -45,6 +45,7 @@ define("view/QuillEditorView", [
                     alert("Character limit!");
                 }
             });
+            quill.enable(false);
         },
 
         getData: function () {

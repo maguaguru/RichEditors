@@ -6,38 +6,31 @@ define("view/SwitchModeButton", [
     "backbone"
 ], function ($, _, Backbone) {
     "use strict";
-
+    var self;
     return Backbone.View.extend({
 
-        /*
-         * El - ссылка на DOM-элемент, в который представление
-         * вставляет сформированное содержимое
-         */
         el: "#switchMode",
 
-        template:  _.template("<button id='switchEditorMode' " +
-          "class='btn m-l-1 m-y-1 btn-primary'>Edit</button></div>"),
+        getButtonName: function () {
+            return this.model.get("editableMode") ? "Save" : "Edit";
+        },
+
+        template: _.template("<button id='switchEditorMode' " +
+          "class='btn m-l-1 m-y-1 btn-primary'><%= this.getButtonName() %></button></div>"),
 
 
         initialize: function () {
+            this.listenTo(this.model, "editorModeModel:updated", this.render);
             this.render();
         },
 
-        getTemplate: function () {
-            console.log("editableMode", this.model.editableMode);
-            var btnName;
-            if (this.model.editableMode) {
-                btnName = "Save";
-            } else {
-                btnName = "Edit";
-            }
-
-            return _.template("<button id='switchEditorMode' " +
-              "class='btn m-l-1 m-y-1 btn-primary'>" + btnName + "</button></div>");
+        editorModeChanged: function () {
+            console.log("## editorModeChanged ##")
+            this.model.trigger("editorModeChanged");
         },
 
         render: function () {
-            this.template = this.getTemplate();
+            console.log("render" + this.model.get("editableMode"));
             this.$el.html(this.template());
             return this;
         }

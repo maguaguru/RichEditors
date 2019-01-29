@@ -26,7 +26,6 @@ define("view/FroalaEditorView", [
          * экземпляра представления
          */
         initialize: function () {
-            console.log("!!! initialize !!!");
             this.model = new FroalaEditorModel();
             config = this.model.get("config");
             this.render();
@@ -75,6 +74,7 @@ define("view/FroalaEditorView", [
             });
 
             this.setData();
+            this.editorSwitchMode(false);
         },
 
         setData: function () {
@@ -86,10 +86,10 @@ define("view/FroalaEditorView", [
         },
 
         editorSwitchMode: function (editable) {
+            console.log("Froala: editorSwitchMode: ", editable);
             if (editable) {
-                froalaEditor.froalaEditor("toolbar.showInline", null, true);
+                froalaEditor.froalaEditor("toolbar.show");
                 froalaEditor.froalaEditor("edit.on");
-
             } else {
                 froalaEditor.froalaEditor("toolbar.hide");
                 froalaEditor.froalaEditor("edit.off");
